@@ -61,7 +61,7 @@ namespace OS_Pr_1_1.Views
 			Console.Clear();
 			Console.WriteLine(
 							"1. Get vk posts and write them to file\n" +
-							"2. Upload new data to vk posts files\n" +
+							"2. Reload data in vk posts files\n" +
 							"3. Read data from vk post files\n" +
 							"0. Quit\n");
 

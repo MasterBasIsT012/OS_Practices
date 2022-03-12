@@ -21,16 +21,7 @@ namespace OS_Pr_1_1.Models
 		{
 			string vkPostJson = jsonWorker.GetJsonPostText(vkPosts);
 
-			using (FileStream sw = new FileStream(f1Name, FileMode.Create))
-			{
-				sw.Write(Encoding.UTF8.GetBytes(vkPostJson));
-			}
-		}
-		public void ReloadVkPostsText(List<VkPost> vkPosts)
-		{
-			string vkPostJson = jsonWorker.GetJsonPostText(vkPosts);
-
-			using (FileStream sw = new FileStream(f1Name, FileMode.Append))
+			using (FileStream sw = new FileStream(f1Name, FileMode.OpenOrCreate))
 			{
 				sw.Write(Encoding.UTF8.GetBytes(vkPostJson));
 			}
@@ -42,16 +33,7 @@ namespace OS_Pr_1_1.Models
 		{
 			string vkPostJson = jsonWorker.GetJsonPostImagesHrefs(vkPosts);
 
-			using (FileStream sw = new FileStream(f2Name, FileMode.Create))
-			{
-				sw.Write(Encoding.UTF8.GetBytes(vkPostJson));
-			}
-		}
-		public void ReloadVkPostsImagesHrefs(List<VkPost> vkPosts)
-		{
-			string vkPostJson = jsonWorker.GetJsonPostImagesHrefs(vkPosts);
-
-			using (FileStream sw = new FileStream(f2Name, FileMode.Append))
+			using (FileStream sw = new FileStream(f2Name, FileMode.OpenOrCreate))
 			{
 				sw.Write(Encoding.UTF8.GetBytes(vkPostJson));
 			}
@@ -62,16 +44,7 @@ namespace OS_Pr_1_1.Models
 		{
 			string vkPostJson = jsonWorker.GetJsonPostHrefs(vkPosts);
 
-			using (FileStream sw = new FileStream(f3Name, FileMode.Create))
-			{
-				sw.Write(Encoding.UTF8.GetBytes(vkPostJson));
-			}
-		}
-		public void ReloadVkPostsHrefs(List<VkPost> vkPosts)
-		{
-			string vkPostJson = jsonWorker.GetJsonPostHrefs(vkPosts);
-
-			using (FileStream sw = new FileStream(f3Name, FileMode.Append))
+			using (FileStream sw = new FileStream(f3Name, FileMode.OpenOrCreate))
 			{
 				sw.Write(Encoding.UTF8.GetBytes(vkPostJson));
 			}

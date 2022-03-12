@@ -24,21 +24,31 @@ namespace OS_Pr_1_1.Models
 			this.fileWriter = fileWriter;
 			vkPosts = new List<VkPost>();
 		}
-		~ChromeWorker()
-		{
-			chromeDriver?.Quit();
-		}
 
-		public void Dispose()
-		{
-			chromeDriver?.Quit();
-		}
 
 		public void GetAndSaveVkPosts()
 		{
-			GetVkPostsFromBrowser();
+			vkPosts = GetVkPostsFromBrowser();
 			WriteVkPostsToFiles();
 		}
+
+		public void ReloadVkPosts()
+		{
+			chromeDriver.Navigate().Refresh();
+			GetNewVkPosts();
+			WriteVkPostsToFiles();
+		}
+		private List<VkPost> GetNewVkPosts()
+		{
+			List<VkPost> newVkPosts = GetVkPostsFromBrowser();
+
+			foreach (VkPost vkPost in newVkPosts)
+				if (!vkPosts.Contains(vkPost))
+					vkPosts.Add(vkPost);
+
+			return newVkPosts;
+		}
+
 		private void WriteVkPostsToFiles()
 		{
 			Thread textWriteThread = new Thread(() => fileWriter.WriteVkPostsText(vkPosts));
@@ -49,25 +59,10 @@ namespace OS_Pr_1_1.Models
 			imagesHrefsWriteThread.Start();
 			hrefsWriteThread.Start();
 		}
+		private List<VkPost> GetVkPostsFromBrowser()
+		{
+			List<VkPost> newVkPosts = new List<VkPost>();
 
-		public void ReloadVkPosts()
-		{
-			GetVkPostsFromBrowser();
-			ReloadVkPostsToFiles();
-		}
-		private void ReloadVkPostsToFiles()
-		{
-			Thread textWriteThread = new Thread(() => fileWriter.ReloadVkPostsText(vkPosts));
-			Thread imagesHrefsWriteThread = new Thread(() => fileWriter.ReloadVkPostsImagesHrefs(vkPosts));
-			Thread hrefsWriteThread = new Thread(() => fileWriter.ReloadVkPostsHrefs(vkPosts));
-
-			textWriteThread.Start();
-			imagesHrefsWriteThread.Start();
-			hrefsWriteThread.Start();
-		}
-		
-		private void GetVkPostsFromBrowser()
-		{
 			List<IWebElement> webElements = chromeDriver.FindElements(By.ClassName("feed_row")).ToList();
 			foreach (var webElement in webElements)
 			{
@@ -78,13 +73,21 @@ namespace OS_Pr_1_1.Models
 
 					VkPost vkPost = new VkPost(webElement);
 					if (!string.IsNullOrEmpty(vkPost.Id))
-						vkPosts.Add(vkPost);
+						newVkPosts.Add(vkPost);
 				}
 				catch (Exception)
 				{
 					continue;
 				}
 			}
+
+			return newVkPosts;
+		}
+		
+
+		public void Dispose()
+		{
+			chromeDriver?.Quit();
 		}
 	}
 }
