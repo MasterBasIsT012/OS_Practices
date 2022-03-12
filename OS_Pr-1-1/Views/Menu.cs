@@ -1,5 +1,6 @@
 ﻿using OS_Pr_1_1.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace OS_Pr_1_1.Views
@@ -53,7 +54,27 @@ namespace OS_Pr_1_1.Views
 			thread.Start();
 		}
 		private void ReadVkposts()
-		{	
+		{
+			ShowVkPost(chromeWorker.VkPosts);
+			Console.ReadKey();
+		}
+		private void ShowVkPost(List<VkPost> vkPosts)
+		{
+			foreach (VkPost vkPost in vkPosts)
+			{
+				Console.WriteLine($"Id: {vkPost.Id}\n" +
+					$"Text:\n {vkPost.Text}\n" +
+					$"Image hrefs: ");
+
+				foreach (string imageHref in vkPost.ImagesHrefs)
+					Console.WriteLine(imageHref);
+
+				Console.WriteLine("Hrefs: ");
+				foreach (string href in vkPost.SharedHrefs)
+					Console.WriteLine(href);
+
+				Console.WriteLine();
+			}
 		}
 
 		private static int GetUserInput()

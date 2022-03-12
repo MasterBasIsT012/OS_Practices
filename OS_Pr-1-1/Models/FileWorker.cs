@@ -26,8 +26,6 @@ namespace OS_Pr_1_1.Models
 				sw.Write(Encoding.UTF8.GetBytes(vkPostJson));
 			}
 		}
-		
-
 
 		public void WriteVkPostsImagesHrefs(List<VkPost> vkPosts)
 		{
@@ -38,7 +36,6 @@ namespace OS_Pr_1_1.Models
 				sw.Write(Encoding.UTF8.GetBytes(vkPostJson));
 			}
 		}
-
 
 		public void WriteVkPostsHrefs(List<VkPost> vkPosts)
 		{

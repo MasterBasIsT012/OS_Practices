@@ -13,6 +13,7 @@ namespace OS_Pr_1_1.Models
 
 		FileWorker fileWriter;
 		List<VkPost> vkPosts;
+		public List<VkPost> VkPosts { get { return vkPosts; } }
 
 		public ChromeWorker(string URL, FileWorker fileWriter)
 		{
