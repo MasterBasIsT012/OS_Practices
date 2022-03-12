@@ -3,14 +3,18 @@ using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using OS_Pr_1_1.Data;
+using OS_Pr_1_1.Models;
+using OS_Pr_1_1.Views;
 
 namespace OS_Pr_1_1.Core
 {
 	internal class Program
 	{
-		static ChromeDriver chromeDriver;
-		static List<VkPost> vkPosts;
+		static string URL = "https://vk.com/feed?section=recommended";
+
+		static FileWriter fileWriter;
+		static ChromeWorker chromeWorker;
+		static Menu menu;
 
 		static void Main(string[] args)
 		{
@@ -24,12 +28,9 @@ namespace OS_Pr_1_1.Core
 		{
 			try
 			{
-				ChromeOptions chromeOptions = new ChromeOptions();
-				chromeOptions.AddArgument(@"user-data-dir=C:\Users\saa_0\AppData\Local\Google\Chrome\User Data");
-				chromeDriver = new ChromeDriver(chromeOptions);
-				chromeDriver.Navigate().GoToUrl("https://vk.com/feed?section=recommended");
-
-				vkPosts = new List<VkPost>();
+				fileWriter = new FileWriter(new JsonWorker());
+				chromeWorker = new ChromeWorker(URL, fileWriter);
+				menu = new Menu(chromeWorker);
 			}
 			catch (Exception e)
 			{
@@ -39,32 +40,12 @@ namespace OS_Pr_1_1.Core
 
 		static void Processing()
 		{
-			List<IWebElement> webElements = chromeDriver.FindElements(By.ClassName("feed_row")).ToList();
-			foreach (var webElement in webElements)
-			{
-				try
-				{
-					if (!webElement.Displayed)
-						continue;
-
-					VkPost vkPost = new VkPost(webElement);
-					if (!string.IsNullOrEmpty(vkPost.Id))
-						vkPosts.Add(vkPost);
-				}
-				catch (Exception)
-				{
-					continue;
-				}
-			}
-
-			JsonWorker.SetPostText(vkPosts);
-			JsonWorker.SetPostImagesHrefs(vkPosts);
-			JsonWorker.SetPostHrefs(vkPosts);
+			menu.Loop();
 		}
 
 		static void Deinitialize()
 		{
-			chromeDriver.Quit();
+			chromeWorker.Dispose();
 		}
 	}
 }
