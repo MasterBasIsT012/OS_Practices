@@ -1,10 +1,6 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using OS_Pr_1_1.Models;
+﻿using OS_Pr_1_1.Models;
 using OS_Pr_1_1.Views;
+using System;
 
 namespace OS_Pr_1_1.Core
 {
@@ -12,7 +8,7 @@ namespace OS_Pr_1_1.Core
 	{
 		static string URL = "https://vk.com/feed?section=recommended";
 
-		static FileWriter fileWriter;
+		static FileWorker fileWriter;
 		static ChromeWorker chromeWorker;
 		static Menu menu;
 
@@ -28,7 +24,7 @@ namespace OS_Pr_1_1.Core
 		{
 			try
 			{
-				fileWriter = new FileWriter(new JsonWorker());
+				fileWriter = new FileWorker(new JsonWorker());
 				chromeWorker = new ChromeWorker(URL, fileWriter);
 				menu = new Menu(chromeWorker);
 			}

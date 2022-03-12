@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using OS_Pr_1_1.DTOs;
+using System.Collections.Generic;
 
 namespace OS_Pr_1_1.Models
 {
@@ -17,10 +15,18 @@ namespace OS_Pr_1_1.Models
 				postTextDTOs.Add(new PostTextDTO() { Id = vkPost.Id, Text = vkPost.Text });
 
 			string vkPostJson = JsonConvert.SerializeObject(postTextDTOs);
-			
+
 			return vkPostJson;
 		}
-		
+		public List<PostTextDTO> GetPostTextFromJson(string postJson)
+		{
+			List<PostTextDTO> postTextDTOs = new List<PostTextDTO>();
+
+			JsonConvert.DeserializeObject<List<PostTextDTO>>(postJson);
+
+			return postTextDTOs;
+		}
+
 		public string GetJsonPostImagesHrefs(List<VkPost> vkPosts)
 		{
 			List<PostImagesHrefsDTO> postImagesHrefsDTOs = new List<PostImagesHrefsDTO>();
@@ -28,10 +34,18 @@ namespace OS_Pr_1_1.Models
 				postImagesHrefsDTOs.Add(new PostImagesHrefsDTO() { Id = vkPost.Id, ImagesHrefs = vkPost.ImagesHrefs });
 
 			string vkPostJson = JsonConvert.SerializeObject(postImagesHrefsDTOs);
-			
+
 			return vkPostJson;
 		}
-		
+		public List<PostImagesHrefsDTO> GetPostImagesHrefsFromJson(string postJson)
+		{
+			List<PostImagesHrefsDTO> postsHrefsDTOs = new List<PostImagesHrefsDTO>();
+
+			postsHrefsDTOs = JsonConvert.DeserializeObject<List<PostImagesHrefsDTO>>(postJson);
+
+			return postsHrefsDTOs;
+		}
+
 		public string GetJsonPostHrefs(List<VkPost> vkPosts)
 		{
 			List<PostSharedHrefsDTO> postTextDTOs = new List<PostSharedHrefsDTO>();
@@ -41,6 +55,14 @@ namespace OS_Pr_1_1.Models
 			string vkPostJson = JsonConvert.SerializeObject(postTextDTOs);
 
 			return vkPostJson;
+		}
+		public List<PostSharedHrefsDTO> GetSharedHrefsFromJson(string postJson)
+		{
+			List<PostSharedHrefsDTO> postSharedHrefsDTOs = new List<PostSharedHrefsDTO>();
+
+			postSharedHrefsDTOs = JsonConvert.DeserializeObject<List<PostSharedHrefsDTO>>(postJson);
+
+			return postSharedHrefsDTOs;
 		}
 	}
 }

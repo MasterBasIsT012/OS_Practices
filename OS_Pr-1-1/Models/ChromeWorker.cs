@@ -3,7 +3,6 @@ using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace OS_Pr_1_1.Models
@@ -12,10 +11,10 @@ namespace OS_Pr_1_1.Models
 	{
 		ChromeDriver chromeDriver;
 
-		FileWriter fileWriter;
+		FileWorker fileWriter;
 		List<VkPost> vkPosts;
 
-		public ChromeWorker(string URL, FileWriter fileWriter)
+		public ChromeWorker(string URL, FileWorker fileWriter)
 		{
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.AddArgument(@"user-data-dir=C:\Users\saa_0\AppData\Local\Google\Chrome\User Data");
@@ -37,6 +36,38 @@ namespace OS_Pr_1_1.Models
 
 		public void GetAndSaveVkPosts()
 		{
+			GetVkPostsFromBrowser();
+			WriteVkPostsToFiles();
+		}
+		private void WriteVkPostsToFiles()
+		{
+			Thread textWriteThread = new Thread(() => fileWriter.WriteVkPostsText(vkPosts));
+			Thread imagesHrefsWriteThread = new Thread(() => fileWriter.WriteVkPostsImagesHrefs(vkPosts));
+			Thread hrefsWriteThread = new Thread(() => fileWriter.WriteVkPostsHrefs(vkPosts));
+
+			textWriteThread.Start();
+			imagesHrefsWriteThread.Start();
+			hrefsWriteThread.Start();
+		}
+
+		public void ReloadVkPosts()
+		{
+			GetVkPostsFromBrowser();
+			ReloadVkPostsToFiles();
+		}
+		private void ReloadVkPostsToFiles()
+		{
+			Thread textWriteThread = new Thread(() => fileWriter.ReloadVkPostsText(vkPosts));
+			Thread imagesHrefsWriteThread = new Thread(() => fileWriter.ReloadVkPostsImagesHrefs(vkPosts));
+			Thread hrefsWriteThread = new Thread(() => fileWriter.ReloadVkPostsHrefs(vkPosts));
+
+			textWriteThread.Start();
+			imagesHrefsWriteThread.Start();
+			hrefsWriteThread.Start();
+		}
+		
+		private void GetVkPostsFromBrowser()
+		{
 			List<IWebElement> webElements = chromeDriver.FindElements(By.ClassName("feed_row")).ToList();
 			foreach (var webElement in webElements)
 			{
@@ -54,13 +85,6 @@ namespace OS_Pr_1_1.Models
 					continue;
 				}
 			}
-			Thread textWriteThread = new Thread(() => fileWriter.WriteVkPostsText(vkPosts));
-			Thread imagesHrefsWriteThread = new Thread(() => fileWriter.WriteVkPostsImagesHrefs(vkPosts));
-			Thread hrefsWriteThread = new Thread(() => fileWriter.WriteVkPostsImagesHrefs(vkPosts));
-
-			textWriteThread.Start();
-			imagesHrefsWriteThread.Start();
-			hrefsWriteThread.Start();
 		}
 	}
 }

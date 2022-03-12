@@ -1,9 +1,6 @@
-﻿using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium;
-using OS_Pr_1_1.Models;
+﻿using OS_Pr_1_1.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Threading;
 
 namespace OS_Pr_1_1.Views
 {
@@ -27,7 +24,13 @@ namespace OS_Pr_1_1.Views
 				switch (commandNumber)
 				{
 					case 1:
-						GetAndSaveVkPost();
+						GetAndSaveVkPosts();
+						break;
+					case 2:
+						ReloadVkposts();
+						break;
+					case 3:
+						ReadVkposts();
 						break;
 					case 0:
 						Console.WriteLine("Bye!");
@@ -38,10 +41,21 @@ namespace OS_Pr_1_1.Views
 				}
 			}
 		}
-		private void GetAndSaveVkPost()
+
+		private void GetAndSaveVkPosts()
 		{
-			chromeWorker.GetAndSaveVkPosts();
+			Thread thread = new Thread(chromeWorker.GetAndSaveVkPosts);
+			thread.Start();
 		}
+		private void ReloadVkposts()
+		{
+			Thread thread = new Thread(chromeWorker.ReloadVkPosts);
+			thread.Start();
+		}
+		private void ReadVkposts()
+		{	
+		}
+
 		private static int GetUserInput()
 		{
 			Console.Clear();
