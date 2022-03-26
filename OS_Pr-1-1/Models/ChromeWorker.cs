@@ -3,7 +3,6 @@ using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 
 namespace OS_Pr_1_1.Models
 {
