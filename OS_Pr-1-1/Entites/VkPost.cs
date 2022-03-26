@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace OS_Pr_1_1.Models
+namespace OS_Pr_1_1.Entities
 {
 	public class VkPost
 	{

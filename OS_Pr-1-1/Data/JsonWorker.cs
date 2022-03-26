@@ -1,8 +1,9 @@
 ﻿using Newtonsoft.Json;
 using OS_Pr_1_1.DTOs;
+using OS_Pr_1_1.Entities;
 using System.Collections.Generic;
 
-namespace OS_Pr_1_1.Models
+namespace OS_Pr_1_1.Data
 {
 	public class JsonWorker
 	{

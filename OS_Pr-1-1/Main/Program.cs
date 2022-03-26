@@ -1,8 +1,9 @@
-﻿using OS_Pr_1_1.Models;
+﻿using OS_Pr_1_1.Data;
+using OS_Pr_1_1.Interactors;
 using OS_Pr_1_1.Views;
 using System;
 
-namespace OS_Pr_1_1.Core
+namespace OS_Pr_1_1.Main
 {
 	internal class Program
 	{

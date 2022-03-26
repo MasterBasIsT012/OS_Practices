@@ -1,4 +1,5 @@
-﻿using OS_Pr_1_1.Models;
+﻿using OS_Pr_1_1.Entities;
+using OS_Pr_1_1.Interactors;
 using System;
 using System.Collections.Generic;
 using System.Threading;

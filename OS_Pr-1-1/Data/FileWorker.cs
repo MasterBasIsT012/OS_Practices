@@ -1,12 +1,14 @@
 ﻿using OS_Pr_1_1.DTOs;
+using OS_Pr_1_1.Entities;
+using OS_Pr_1_1.Interactors;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading;
 
-namespace OS_Pr_1_1.Models
+namespace OS_Pr_1_1.Data
 {
-	public class FileWorker
+	public class FileWorker : IFileWorker
 	{
 		readonly string f1Name = "1.json";
 		readonly string f2Name = "2.json";
@@ -60,13 +62,13 @@ namespace OS_Pr_1_1.Models
 		public List<VkPost> ReadVkPosts()
 		{
 			List<VkPost> vkPosts = new List<VkPost>();
-			
+
 			List<PostTextDTO> postTextDTOs = new List<PostTextDTO>();
 			List<PostImagesHrefsDTO> postImagesHrefsDTOs = new List<PostImagesHrefsDTO>();
 			List<PostSharedHrefsDTO> postSharedHrefsDTOs = new List<PostSharedHrefsDTO>();
 
 			Thread textReadThread = new Thread(() => postTextDTOs = ReadVkPostsText());
-			Thread imagesHrefsReadThread = new Thread(() => postImagesHrefsDTOs= ReadVkPostImagesHrefs());
+			Thread imagesHrefsReadThread = new Thread(() => postImagesHrefsDTOs = ReadVkPostImagesHrefs());
 			Thread hrefsReadThread = new Thread(() => postSharedHrefsDTOs = ReadVkPostHrefs());
 
 			textReadThread.Start();
@@ -78,8 +80,8 @@ namespace OS_Pr_1_1.Models
 
 			for (int i = 0; i < postTextDTOs.Count; i++)
 			{
-				vkPosts.Add(new VkPost() 
-				{ 
+				vkPosts.Add(new VkPost()
+				{
 					Id = postTextDTOs[i].Id,
 					Text = postTextDTOs[i].Text,
 					ImagesHrefs = postImagesHrefsDTOs[i].ImagesHrefs,
@@ -102,7 +104,7 @@ namespace OS_Pr_1_1.Models
 
 			return vkPostsTexts;
 		}
-		private List<PostImagesHrefsDTO> ReadVkPostImagesHrefs() 
+		private List<PostImagesHrefsDTO> ReadVkPostImagesHrefs()
 		{
 			List<PostImagesHrefsDTO> vkPostsImageHrefs = new List<PostImagesHrefsDTO>();
 
@@ -115,7 +117,7 @@ namespace OS_Pr_1_1.Models
 
 			return vkPostsImageHrefs;
 		}
-		private List<PostSharedHrefsDTO> ReadVkPostHrefs() 
+		private List<PostSharedHrefsDTO> ReadVkPostHrefs()
 		{
 			List<PostSharedHrefsDTO> vkPostsHrefs = new List<PostSharedHrefsDTO>();
 

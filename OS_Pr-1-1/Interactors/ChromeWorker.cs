@@ -1,20 +1,21 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OS_Pr_1_1.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace OS_Pr_1_1.Models
+namespace OS_Pr_1_1.Interactors
 {
 	public class ChromeWorker : IDisposable
 	{
 		ChromeDriver chromeDriver;
 
-		FileWorker fileWorker;
+		IFileWorker fileWorker;
 		List<VkPost> vkPosts;
 		public List<VkPost> VkPosts { get { return vkPosts; } }
 
-		public ChromeWorker(string URL, FileWorker fileWorker)
+		public ChromeWorker(string URL, IFileWorker fileWorker)
 		{
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.AddArgument(@"user-data-dir=C:\Users\saa_0\AppData\Local\Google\Chrome\User Data");
@@ -81,7 +82,7 @@ namespace OS_Pr_1_1.Models
 
 			return newVkPosts;
 		}
-		
+
 
 		public void Dispose()
 		{
