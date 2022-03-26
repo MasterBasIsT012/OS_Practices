@@ -33,26 +33,24 @@ namespace OS_Pr_1_1.Models
 		private void WriteVkPostsText(List<VkPost> vkPosts)
 		{
 			string vkPostJson = jsonWorker.GetJsonPostText(vkPosts);
-
-			using (FileStream fs = new FileStream(f1Name, FileMode.OpenOrCreate))
-			{
-				fs.Write(Encoding.UTF8.GetBytes(vkPostJson));
-			}
+			WriteToFile(f1Name, vkPostJson);
 		}
 		private void WriteVkPostsImagesHrefs(List<VkPost> vkPosts)
 		{
 			string vkPostJson = jsonWorker.GetJsonPostImagesHrefs(vkPosts);
-
-			using (FileStream fs = new FileStream(f2Name, FileMode.OpenOrCreate))
-			{
-				fs.Write(Encoding.UTF8.GetBytes(vkPostJson));
-			}
+			WriteToFile(f2Name, vkPostJson);
 		}
 		private void WriteVkPostsHrefs(List<VkPost> vkPosts)
 		{
 			string vkPostJson = jsonWorker.GetJsonPostHrefs(vkPosts);
+			WriteToFile(f3Name, vkPostJson);
+		}
+		private void WriteToFile(string fileName, string vkPostJson)
+		{
+			if (File.Exists(fileName))
+				File.Delete(fileName);
 
-			using (FileStream fs = new FileStream(f3Name, FileMode.OpenOrCreate))
+			using (FileStream fs = new FileStream(fileName, FileMode.CreateNew))
 			{
 				fs.Write(Encoding.UTF8.GetBytes(vkPostJson));
 			}

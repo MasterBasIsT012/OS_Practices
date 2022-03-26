@@ -15,14 +15,14 @@ namespace OS_Pr_1_1.Models
 		List<VkPost> vkPosts;
 		public List<VkPost> VkPosts { get { return vkPosts; } }
 
-		public ChromeWorker(string URL, FileWorker fileWriter)
+		public ChromeWorker(string URL, FileWorker fileWorker)
 		{
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.AddArgument(@"user-data-dir=C:\Users\saa_0\AppData\Local\Google\Chrome\User Data");
 			chromeDriver = new ChromeDriver(chromeOptions);
 			chromeDriver.Navigate().GoToUrl(URL);
 
-			this.fileWorker = fileWriter;
+			this.fileWorker = fileWorker;
 			vkPosts = new List<VkPost>();
 		}
 

@@ -38,7 +38,7 @@ namespace OS_Pr_1_1.Models
 
 			return vkPostJson;
 		}
-		
+
 		public List<PostTextDTO> GetPostTextFromJson(string postJson)
 		{
 			List<PostTextDTO> postTextDTOs = new List<PostTextDTO>();
@@ -62,6 +62,13 @@ namespace OS_Pr_1_1.Models
 			postSharedHrefsDTOs = JsonConvert.DeserializeObject<List<PostSharedHrefsDTO>>(postJson);
 
 			return postSharedHrefsDTOs;
+		}
+
+		private string NormalizeToJson(string content)
+		{
+			content = content.Replace("\\", "");
+			content = content.Trim('\\', '\"');
+			return content;
 		}
 	}
 }

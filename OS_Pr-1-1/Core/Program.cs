@@ -6,7 +6,7 @@ namespace OS_Pr_1_1.Core
 {
 	internal class Program
 	{
-		static string URL = "https://vk.com/feed?section=recommended";
+		static string URL = "https://vk.com/feed";
 
 		static FileWorker fileWriter;
 		static ChromeWorker chromeWorker;
