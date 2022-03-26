@@ -8,6 +8,7 @@ namespace OS_Pr_1_1.Models
 	{
 		static JsonSerializer serializer = new JsonSerializer();
 
+
 		public string GetJsonPostText(List<VkPost> vkPosts)
 		{
 			List<PostTextDTO> postTextDTOs = new List<PostTextDTO>();
@@ -39,11 +40,12 @@ namespace OS_Pr_1_1.Models
 			return vkPostJson;
 		}
 
+
 		public List<PostTextDTO> GetPostTextFromJson(string postJson)
 		{
 			List<PostTextDTO> postTextDTOs = new List<PostTextDTO>();
 
-			JsonConvert.DeserializeObject<List<PostTextDTO>>(postJson);
+			postTextDTOs = JsonConvert.DeserializeObject<List<PostTextDTO>>(postJson);
 
 			return postTextDTOs;
 		}
