@@ -18,15 +18,6 @@ namespace OS_Pr_1_1.Models
 
 			return vkPostJson;
 		}
-		public List<PostTextDTO> GetPostTextFromJson(string postJson)
-		{
-			List<PostTextDTO> postTextDTOs = new List<PostTextDTO>();
-
-			JsonConvert.DeserializeObject<List<PostTextDTO>>(postJson);
-
-			return postTextDTOs;
-		}
-
 		public string GetJsonPostImagesHrefs(List<VkPost> vkPosts)
 		{
 			List<PostImagesHrefsDTO> postImagesHrefsDTOs = new List<PostImagesHrefsDTO>();
@@ -37,15 +28,6 @@ namespace OS_Pr_1_1.Models
 
 			return vkPostJson;
 		}
-		public List<PostImagesHrefsDTO> GetPostImagesHrefsFromJson(string postJson)
-		{
-			List<PostImagesHrefsDTO> postsHrefsDTOs = new List<PostImagesHrefsDTO>();
-
-			postsHrefsDTOs = JsonConvert.DeserializeObject<List<PostImagesHrefsDTO>>(postJson);
-
-			return postsHrefsDTOs;
-		}
-
 		public string GetJsonPostHrefs(List<VkPost> vkPosts)
 		{
 			List<PostSharedHrefsDTO> postTextDTOs = new List<PostSharedHrefsDTO>();
@@ -55,6 +37,23 @@ namespace OS_Pr_1_1.Models
 			string vkPostJson = JsonConvert.SerializeObject(postTextDTOs);
 
 			return vkPostJson;
+		}
+		
+		public List<PostTextDTO> GetPostTextFromJson(string postJson)
+		{
+			List<PostTextDTO> postTextDTOs = new List<PostTextDTO>();
+
+			JsonConvert.DeserializeObject<List<PostTextDTO>>(postJson);
+
+			return postTextDTOs;
+		}
+		public List<PostImagesHrefsDTO> GetPostImagesHrefsFromJson(string postJson)
+		{
+			List<PostImagesHrefsDTO> postsHrefsDTOs = new List<PostImagesHrefsDTO>();
+
+			postsHrefsDTOs = JsonConvert.DeserializeObject<List<PostImagesHrefsDTO>>(postJson);
+
+			return postsHrefsDTOs;
 		}
 		public List<PostSharedHrefsDTO> GetSharedHrefsFromJson(string postJson)
 		{

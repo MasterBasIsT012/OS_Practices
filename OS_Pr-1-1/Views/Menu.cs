@@ -45,7 +45,7 @@ namespace OS_Pr_1_1.Views
 
 		private void GetAndSaveVkPosts()
 		{
-			Thread thread = new Thread(chromeWorker.GetAndSaveVkPosts);
+			Thread thread = new Thread(chromeWorker.ReadAndSaveVkPostsFromBrowser);
 			thread.Start();
 		}
 		private void ReloadVkposts()
@@ -55,6 +55,7 @@ namespace OS_Pr_1_1.Views
 		}
 		private void ReadVkposts()
 		{
+			chromeWorker.ReadVkPostsFromFiles();
 			ShowVkPost(chromeWorker.VkPosts);
 			Console.ReadKey();
 		}
@@ -63,7 +64,7 @@ namespace OS_Pr_1_1.Views
 			foreach (VkPost vkPost in vkPosts)
 			{
 				Console.WriteLine($"Id: {vkPost.Id}\n" +
-					$"Text:\n {vkPost.Text}\n" +
+					$"Text:\n {vkPost.Text.TrimEnd('\n')}\n" +
 					$"Image hrefs: ");
 
 				foreach (string imageHref in vkPost.ImagesHrefs)
@@ -81,15 +82,15 @@ namespace OS_Pr_1_1.Views
 		{
 			Console.Clear();
 			Console.WriteLine(
-							"1. Get vk posts and write them to file\n" +
+							"1. Get vk posts and write them to files\n" +
 							"2. Reload data in vk posts files\n" +
-							"3. Read data from vk post files\n" +
+							"3. Read data from vk posts files\n" +
 							"0. Quit\n");
 
 			Console.Write("Enter the command number: ");
 			int commandNumber;
 			while (!int.TryParse(Console.ReadLine(), out commandNumber))
-				Console.WriteLine("You input something strange, repeat the entrance; ");
+				Console.WriteLine("You input something strange, repeat the entrance: ");
 			return commandNumber;
 		}
 	}

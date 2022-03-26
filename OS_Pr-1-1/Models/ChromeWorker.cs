@@ -11,7 +11,7 @@ namespace OS_Pr_1_1.Models
 	{
 		ChromeDriver chromeDriver;
 
-		FileWorker fileWriter;
+		FileWorker fileWorker;
 		List<VkPost> vkPosts;
 		public List<VkPost> VkPosts { get { return vkPosts; } }
 
@@ -22,15 +22,19 @@ namespace OS_Pr_1_1.Models
 			chromeDriver = new ChromeDriver(chromeOptions);
 			chromeDriver.Navigate().GoToUrl(URL);
 
-			this.fileWriter = fileWriter;
+			this.fileWorker = fileWriter;
 			vkPosts = new List<VkPost>();
 		}
 
 
-		public void GetAndSaveVkPosts()
+		public void ReadAndSaveVkPostsFromBrowser()
 		{
 			vkPosts = GetVkPostsFromBrowser();
 			WriteVkPostsToFiles();
+		}
+		public void ReadVkPostsFromFiles()
+		{
+			vkPosts = fileWorker.ReadVkPosts();
 		}
 
 		public void ReloadVkPosts()
@@ -52,13 +56,7 @@ namespace OS_Pr_1_1.Models
 
 		private void WriteVkPostsToFiles()
 		{
-			Thread textWriteThread = new Thread(() => fileWriter.WriteVkPostsText(vkPosts));
-			Thread imagesHrefsWriteThread = new Thread(() => fileWriter.WriteVkPostsImagesHrefs(vkPosts));
-			Thread hrefsWriteThread = new Thread(() => fileWriter.WriteVkPostsHrefs(vkPosts));
-
-			textWriteThread.Start();
-			imagesHrefsWriteThread.Start();
-			hrefsWriteThread.Start();
+			fileWorker.WriteVkPosts(vkPosts);
 		}
 		private List<VkPost> GetVkPostsFromBrowser()
 		{
