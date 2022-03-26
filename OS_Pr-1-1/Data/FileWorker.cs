@@ -1,4 +1,4 @@
-﻿using OS_Pr_1_1.DTOs;
+﻿using OS_Pr_1_1.Data.DTOs;
 using OS_Pr_1_1.Entities;
 using OS_Pr_1_1.Interactors;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace OS_Pr_1_1.Data
 {
-	public class FileWorker : IFileWorker
+	public class FileWorker : IDataWorker
 	{
 		readonly string f1Name = "1.json";
 		readonly string f2Name = "2.json";

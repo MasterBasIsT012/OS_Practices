@@ -11,18 +11,18 @@ namespace OS_Pr_1_1.Interactors
 	{
 		ChromeDriver chromeDriver;
 
-		IFileWorker fileWorker;
+		IDataWorker dataWorker;
 		List<VkPost> vkPosts;
 		public List<VkPost> VkPosts { get { return vkPosts; } }
 
-		public ChromeWorker(string URL, IFileWorker fileWorker)
+		public ChromeWorker(string URL, IDataWorker dataWorker)
 		{
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.AddArgument(@"user-data-dir=C:\Users\saa_0\AppData\Local\Google\Chrome\User Data");
 			chromeDriver = new ChromeDriver(chromeOptions);
 			chromeDriver.Navigate().GoToUrl(URL);
 
-			this.fileWorker = fileWorker;
+			this.dataWorker = dataWorker;
 			vkPosts = new List<VkPost>();
 		}
 
@@ -34,7 +34,7 @@ namespace OS_Pr_1_1.Interactors
 		}
 		public void ReadVkPostsFromFiles()
 		{
-			vkPosts = fileWorker.ReadVkPosts();
+			vkPosts = dataWorker.ReadVkPosts();
 		}
 
 		public void ReloadVkPosts()
@@ -56,7 +56,7 @@ namespace OS_Pr_1_1.Interactors
 
 		private void WriteVkPostsToFiles()
 		{
-			fileWorker.WriteVkPosts(vkPosts);
+			dataWorker.WriteVkPosts(vkPosts);
 		}
 		private List<VkPost> GetVkPostsFromBrowser()
 		{

@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using OS_Pr_1_1.DTOs;
+using OS_Pr_1_1.Data.DTOs;
 using OS_Pr_1_1.Entities;
 using System.Collections.Generic;
 
