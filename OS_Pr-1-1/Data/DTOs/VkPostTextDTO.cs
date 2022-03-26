@@ -1,6 +1,6 @@
 ﻿namespace OS_Pr_1_1.Data.DTOs
 {
-	public class PostTextDTO
+	public class VkPostTextDTO
 	{
 		public string Id;
 		public string Text;

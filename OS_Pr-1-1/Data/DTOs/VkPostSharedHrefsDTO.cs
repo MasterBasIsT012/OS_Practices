@@ -2,9 +2,9 @@
 
 namespace OS_Pr_1_1.Data.DTOs
 {
-	public class PostImagesHrefsDTO
+	public class VkPostSharedHrefsDTO
 	{
 		public string Id;
-		public List<string> ImagesHrefs;
+		public List<string> SharedHrefs;
 	}
 }

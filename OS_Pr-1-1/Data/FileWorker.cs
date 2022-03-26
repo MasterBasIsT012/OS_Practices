@@ -10,9 +10,9 @@ namespace OS_Pr_1_1.Data
 {
 	public class FileWorker : IDataWorker
 	{
-		readonly string f1Name = "1.json";
-		readonly string f2Name = "2.json";
-		readonly string f3Name = "3.json";
+		readonly string vkPostTextsFileName = "1.json";
+		readonly string vkPostsImagesHrefsFileName = "2.json";
+		readonly string vkPostsHrefsFileName = "3.json";
 
 		private readonly JsonWorker jsonWorker;
 
@@ -35,17 +35,17 @@ namespace OS_Pr_1_1.Data
 		private void WriteVkPostsText(List<VkPost> vkPosts)
 		{
 			string vkPostJson = jsonWorker.GetJsonPostText(vkPosts);
-			WriteToFile(f1Name, vkPostJson);
+			WriteToFile(vkPostTextsFileName, vkPostJson);
 		}
 		private void WriteVkPostsImagesHrefs(List<VkPost> vkPosts)
 		{
 			string vkPostJson = jsonWorker.GetJsonPostImagesHrefs(vkPosts);
-			WriteToFile(f2Name, vkPostJson);
+			WriteToFile(vkPostsImagesHrefsFileName, vkPostJson);
 		}
 		private void WriteVkPostsHrefs(List<VkPost> vkPosts)
 		{
 			string vkPostJson = jsonWorker.GetJsonPostHrefs(vkPosts);
-			WriteToFile(f3Name, vkPostJson);
+			WriteToFile(vkPostsHrefsFileName, vkPostJson);
 		}
 		private void WriteToFile(string fileName, string vkPostJson)
 		{
@@ -63,9 +63,9 @@ namespace OS_Pr_1_1.Data
 		{
 			List<VkPost> vkPosts = new List<VkPost>();
 
-			List<PostTextDTO> postTextDTOs = new List<PostTextDTO>();
-			List<PostImagesHrefsDTO> postImagesHrefsDTOs = new List<PostImagesHrefsDTO>();
-			List<PostSharedHrefsDTO> postSharedHrefsDTOs = new List<PostSharedHrefsDTO>();
+			List<VkPostTextDTO> postTextDTOs = new List<VkPostTextDTO>();
+			List<VkPostImagesHrefsDTO> postImagesHrefsDTOs = new List<VkPostImagesHrefsDTO>();
+			List<VkPostSharedHrefsDTO> postSharedHrefsDTOs = new List<VkPostSharedHrefsDTO>();
 
 			Thread textReadThread = new Thread(() => postTextDTOs = ReadVkPostsText());
 			Thread imagesHrefsReadThread = new Thread(() => postImagesHrefsDTOs = ReadVkPostImagesHrefs());
@@ -91,39 +91,39 @@ namespace OS_Pr_1_1.Data
 
 			return vkPosts;
 		}
-		private List<PostTextDTO> ReadVkPostsText()
+		private List<VkPostTextDTO> ReadVkPostsText()
 		{
-			List<PostTextDTO> vkPostsTexts = new List<PostTextDTO>();
+			List<VkPostTextDTO> vkPostsTexts = new List<VkPostTextDTO>();
 
-			if (File.Exists(f1Name))
+			if (File.Exists(vkPostTextsFileName))
 			{
-				string content = File.ReadAllText(f1Name);
+				string content = File.ReadAllText(vkPostTextsFileName);
 
 				vkPostsTexts = jsonWorker.GetPostTextFromJson(content);
 			}
 
 			return vkPostsTexts;
 		}
-		private List<PostImagesHrefsDTO> ReadVkPostImagesHrefs()
+		private List<VkPostImagesHrefsDTO> ReadVkPostImagesHrefs()
 		{
-			List<PostImagesHrefsDTO> vkPostsImageHrefs = new List<PostImagesHrefsDTO>();
+			List<VkPostImagesHrefsDTO> vkPostsImageHrefs = new List<VkPostImagesHrefsDTO>();
 
-			if (File.Exists(f2Name))
+			if (File.Exists(vkPostsImagesHrefsFileName))
 			{
-				string content = File.ReadAllText(f2Name);
+				string content = File.ReadAllText(vkPostsImagesHrefsFileName);
 
 				vkPostsImageHrefs = jsonWorker.GetPostImagesHrefsFromJson(content);
 			}
 
 			return vkPostsImageHrefs;
 		}
-		private List<PostSharedHrefsDTO> ReadVkPostHrefs()
+		private List<VkPostSharedHrefsDTO> ReadVkPostHrefs()
 		{
-			List<PostSharedHrefsDTO> vkPostsHrefs = new List<PostSharedHrefsDTO>();
+			List<VkPostSharedHrefsDTO> vkPostsHrefs = new List<VkPostSharedHrefsDTO>();
 
-			if (File.Exists(f3Name))
+			if (File.Exists(vkPostsHrefsFileName))
 			{
-				string content = File.ReadAllText(f3Name);
+				string content = File.ReadAllText(vkPostsHrefsFileName);
 
 				vkPostsHrefs = jsonWorker.GetSharedHrefsFromJson(content);
 			}
