@@ -37,12 +37,12 @@ namespace OS_Pr_1_1.Main
 
 		static void Processing()
 		{
-			menu.Loop();
+			menu?.Loop();
 		}
 
 		static void Deinitialize()
 		{
-			chromeWorker.Dispose();
+			chromeWorker?.Dispose();
 		}
 	}
 }
